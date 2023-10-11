@@ -20,6 +20,20 @@ function decodedData(encoded, translations) {
   });
 }
 
+function getUniqueId(encoded, translations) {
+  const id = new Set();
+  for (let item of encoded) {
+    for (let key in item) {
+      if (key.endsWith("Id")) {
+        id.add(item[key]);
+      }
+    }
+  }
+  return Array.from(id).filter((id) => id in translations);
+}
+
 const decoded = decodedData(encoded, translations);
+const uniqueId = getUniqueId(encoded, translations);
 
 console.log(decoded);
+console.log(uniqueId);
